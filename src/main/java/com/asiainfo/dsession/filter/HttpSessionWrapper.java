@@ -89,8 +89,9 @@ public class HttpSessionWrapper implements HttpSession {
 	 * @see javax.servlet.http.HttpSession#getSessionContext()
 	 */
 	@Override
+	@Deprecated
 	public HttpSessionContext getSessionContext() {
-		return this.session.getSessionContext();
+		return null;
 	}
 
 	/* 
@@ -112,9 +113,9 @@ public class HttpSessionWrapper implements HttpSession {
 	 * @see javax.servlet.http.HttpSession#getValue(java.lang.String)
 	 */
 	@Override
+	@Deprecated
 	public Object getValue(String name) {
-		return this.session.getValue(name);
-	}
+		return this.getAttribute(name); }
 
 	/* 
 	 * @Description: TODO
@@ -133,8 +134,9 @@ public class HttpSessionWrapper implements HttpSession {
 	 * @see javax.servlet.http.HttpSession#getValueNames()
 	 */
 	@Override
+	@Deprecated
 	public String[] getValueNames() {
-		return this.session.getValueNames();
+		return null;
 	}
 
 	/* 
@@ -156,8 +158,9 @@ public class HttpSessionWrapper implements HttpSession {
 	 * @see javax.servlet.http.HttpSession#putValue(java.lang.String, java.lang.Object)
 	 */
 	@Override
+	@Deprecated
 	public void putValue(String name, Object value) {
-		this.session.putValue(name, value);
+		this.setAttribute(name, value);
 	}
 
 	/* 
@@ -178,7 +181,7 @@ public class HttpSessionWrapper implements HttpSession {
 	 */
 	@Override
 	public void removeValue(String name) {
-		this.session.removeValue(name);
+		this.removeAttribute(name);
 	}
 
 	/* 

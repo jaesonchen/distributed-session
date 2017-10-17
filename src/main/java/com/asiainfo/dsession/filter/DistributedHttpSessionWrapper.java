@@ -34,24 +34,29 @@ public class DistributedHttpSessionWrapper extends HttpSessionWrapper {
 		this.sessionId = sessionId;
 	}
 
+	@Override
 	public Object getAttribute(String key) {
 		return DistributedContextContainer.getSessionService().getSessionAttribute(sessionId, key);
 	}
 
+	@Override
 	public Enumeration<String> getAttributeNames() {
 		
 		Map<String, String> session = DistributedContextContainer.getSessionService().getSessionContext(sessionId);
 		return (new SessionEnumerator<String>(session.keySet(), true));
 	}
 
+	@Override
 	public void invalidate() {
 		DistributedContextContainer.getSessionService().removeSession(sessionId);
 	}
 
+	@Override
 	public void removeAttribute(String key) {
 		DistributedContextContainer.getSessionService().removeSessionAttribute(sessionId, key);
 	}
 
+	@Override
 	public void setAttribute(String key, Object value) {
 		if (value instanceof String) {
 			DistributedContextContainer.getSessionService().setSessionAttribute(sessionId, key, (String) value);

@@ -26,8 +26,8 @@ public class DistributedContextContainer implements ApplicationContextAware {
 	 * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
 	 */
 	@Override
-	public void setApplicationContext(ApplicationContext _applicationContext) throws BeansException {
-		applicationcontext = _applicationContext;
+	public void setApplicationContext(ApplicationContext context) throws BeansException {
+		applicationcontext = context;
 	}
 
 	/**

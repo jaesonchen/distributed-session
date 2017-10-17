@@ -25,10 +25,12 @@ public class DistributedHttpServletRequestWrapper extends HttpServletRequestWrap
 		this.sessionId = sessionId;
 	}
 
+	@Override
 	public HttpSession getSession(boolean create) {
 		return new DistributedHttpSessionWrapper(this.sessionId, super.getSession(create));
 	}
 
+	@Override
 	public HttpSession getSession() {
 		return new DistributedHttpSessionWrapper(this.sessionId, super.getSession());
 	}

@@ -79,9 +79,13 @@ public class DistributedSessionFilter implements Filter {
 			filterChain.doFilter(request, response);
 			return;
 		}
-		this.local.set(StringUtils.isEmpty(this.cookieDomain) ? request.getServerName() : this.cookieDomain);
-		String sessionId = this.getSessionId(request, response);
-		filterChain.doFilter(new DistributedHttpServletRequestWrapper(sessionId, request), response);
+		try {
+			local.set(StringUtils.isEmpty(this.cookieDomain) ? request.getServerName() : this.cookieDomain);
+			String sessionId = this.getSessionId(request, response);
+			filterChain.doFilter(new DistributedHttpServletRequestWrapper(sessionId, request), response);
+		} finally {
+			local.remove();
+		}
 	}
 
 	/* 
@@ -110,7 +114,7 @@ public class DistributedSessionFilter implements Filter {
 	
 	protected String getSessionId(HttpServletRequest request, HttpServletResponse response) {
 		
-		Cookie cookies[] = request.getCookies();
+		Cookie[] cookies = request.getCookies();
 		String sessionId = null;
 		if (cookies != null && cookies.length > 0) {
 			for (Cookie cookie : cookies) {
